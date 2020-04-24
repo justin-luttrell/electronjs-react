@@ -1,25 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import {Button} from "react-bootstrap";
+import Ticket from "./components/Ticket";
+import styled from "@emotion/styled";
+import data from "./data.json";
+
+const Base = styled.div`
+  padding: 5%;
+`
+
+const Tickets = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+`
+
+const AddButton = styled(Button)`
+`
 
 function App() {
+  const tickets = data.tickets
+  const [ticketsData, setTickets] = useState(tickets);
+
+  function addTicket(){
+    setTickets(tickets.push({}));
+    console.log(data);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Base>
+      <Tickets>
+        {data.tickets.map(ticket => {
+          if (ticket.number)
+            return <Ticket editMode={false} data={ticket}/>
+          return <Ticket editMode={true} data={ticket}/>
+        })}
+      </Tickets>
+      <Button variant="primary" onClick={addTicket}>Add Ticket</Button>
+    </Base>
   );
 }
 
