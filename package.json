@@ -1,20 +1,50 @@
 {
   "name": "electronjs-react",
   "version": "0.1.0",
+  "author": "J Luttrell",
+  "description": "Electron app built with React",
   "private": true,
+  "main": "public/electron.js",
+  "homepage": "./",
   "dependencies": {
+    "@emotion/core": "^10.0.28",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "bootstrap": "^4.4.1",
+    "electron-is-dev": "^1.2.0",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "electron": "^8.2.3",
+    "electron-builder": "^22.5.1",
+    "wait-on": "^4.0.2"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron-build": "electron-builder -wl",
+    "build": "yarn react-build && yarn electron-build",
+    "start": "concurrently \" BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
+  },
+  "build": {
+    "appId": "null",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": "NSIS"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
