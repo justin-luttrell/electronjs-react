@@ -1,0 +1,56 @@
+{
+    "tickets": [
+        {
+            "number": "62462",
+            "locations": [
+                {
+                    "CLLI": "Lexington",
+                    "notes": "ESD 5/22",
+                    "status": "Shipping", 
+                    "date": "4/24/2020" 
+                },
+                {
+                    "CLLI": "Lexington",
+                    "notes": "ESD 5/22",
+                    "status": "Shipping", 
+                    "date": "4/24/2020" 
+                },
+                {
+                    "CLLI": "Lexington",
+                    "notes": "ESD 5/22",
+                    "status": "Shipping", 
+                    "date": "4/24/2020" 
+                },
+                {
+                    "CLLI": "Lexington",
+                    "notes": "CB 4/24",
+                    "status": "Shipping", 
+                    "date": "4/24/2020" 
+                }
+            ]
+        },
+        {
+            "number": "62495",
+            "locations": [
+                {
+                    "CLLI": "Lexington",
+                    "notes": "Lorem ipsum dolar",
+                    "status": "Complete",
+                    "date": "4/24/2020" 
+                }
+            ]
+        },
+        {
+            "number": "62361",
+            "locations": [
+                {
+                    "CLLI": "Lexington",
+                    "notes": "Lorem ipsum dolar",
+                    "status": "Complete",
+                    "date": "4/24/2020" 
+                }
+            ]
+        }   
+    ],
+    "reminders": {}
+}
