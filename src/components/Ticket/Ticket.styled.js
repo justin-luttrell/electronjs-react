@@ -27,9 +27,6 @@ export const Control = styled.div`
     right: 10px;
 `
 
-export const ControlOptions = styled.div`
-    position: absolute;
-`
 
 export const EditButton = styled.button`
     font-size: 16px;

@@ -34,12 +34,12 @@ export const CLLIEdit = styled(StyledInput)`
 `
  
 export const NotesWrapper = styled.div`
-    flex: 3;
     position: relative;
+
 `
 
 export const NoteStatus = styled.span`
-        
+    visibility: hidden;
     border-radius: 50%;
     transform: translateY(-5px);
     background-color: green;
@@ -48,18 +48,21 @@ export const NoteStatus = styled.span`
     position: absolute;
     right: 0;
     top: 0;
-    padding: 4px;
-    &:hover {
-        cursor: pointer;
+    padding: 8px;
+    cursor: pointer;
+
+    .notes-wrapper:hover & {
+        visibility: visible;    
     }
+
 `
 
 export const Notes = styled.div`
     padding: 6px 12px 6px 0px;
+    flex: 3;
 `
 
 export const NotesEdit = styled(StyledInput)`
-    width: 0;
     flex: 3;
 `
 

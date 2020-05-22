@@ -10,20 +10,47 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 
 const Tickets = () => {
-    console.log(data)
     const tickets = data.tickets
-    const [ticketsData, setTickets] = useState(tickets);
+    const [ticketsData, setTicketsData] = useState(tickets);
 
     function addTicket() {
-        setTickets(tickets.push({}));
+        tickets.push({number: 'Number', locations: []})
+        setTicketsData({...tickets});
+    }
+
+    function addLocation(ticketIndex) {
+        tickets[ticketIndex].locations.push({
+            CLLI: "CLLI", 
+            notes: "...Notes", 
+            date: new Date().toLocaleString('en-US',{dateStyle: "short", timeStyle: "short"})} 
+        )
+        setTicketsData({...tickets})
+    }
+
+    function changeTicketNum(ticketIndex, newTicketNum) {
+        tickets[ticketIndex].number = newTicketNum;
+        setTicketsData({...tickets});
+    }
+
+    function changeLocationData(ticketIndex, locationNum, dataKey, newData){
+        tickets[ticketIndex].locations[locationNum][dataKey] =  newData
+        setTicketsData({...tickets})
     }
 
     return (
         <TicketsBase>
-            {data.tickets.map(ticket => {
-                console.log(ticket)
+            {tickets.map((ticket, index) => {
                 if (ticket.number)
-                    return <Ticket editMode={false} data={ticket} />
+                    return (
+                        <Ticket 
+                            editMode={false}
+                            data={ticketsData[index]}
+                            ticketIndex={index}
+                            addLocation={addLocation}
+                            changeTicketNum={changeTicketNum}
+                            changeLocationData={changeLocationData}
+                        />
+                    )
                 return <Ticket editMode={true} data={{ locations: [] }} />
             })}
             <AddTicketButton variant="primary" onClick={addTicket}><FontAwesomeIcon icon={faPlusCircle} /></AddTicketButton>
