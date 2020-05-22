@@ -64,48 +64,6 @@ function Ticket(props) {
                 })}
             </Locations>
 
-
-            {/* {!editMode &&
-                <>  
-                <Number onDoubleClick={() => setEditMode(true)}>{props.data.number}</Number>
-                    <EditButton onClick={handleEdit}><FontAwesomeIcon icon={faEdit}/></EditButton>
-                    <Locations>
-                        {props.data.locations.map(location => {
-                            return (
-                                <Location>
-                                    <CLLI onDoubleClick={() => setEditMode(true)}>{location.CLLI}</CLLI>
-                                    <Notes onDoubleClick={() => setEditMode(true)}>{location.notes}</Notes>
-                                    <Date onDoubleClick={() => setEditMode(true)}>{location.date}</Date>
-                                </Location>
-                            )
-                                
-                        })}
-                    </Locations>
-                </>
-            }
-
-            {editMode && 
-                <FormWrapper>  
-                    <form onSubmit={handleSubmit}>
-                        <NumberEdit placeholder={data.number || "Number"} onChange={handleNumberChange} defaultValue={data.number}/>
-                        <EditButton onClick={handleEdit}><FontAwesomeIcon icon={faCheck}/></EditButton>
-                        <LocationsEdit>
-                            {data.locations.map((location, index) => {
-                                return (
-                                    <LocationEdit>
-                                        <CLLIEdit placeholder={location.CLLI || "CLLI"} onChange={(event) => handleLocationPropChange(event, "CLLI", index)} defaultValue={location.CLLI}/>
-                                        <NotesEdit placeholder={location.notes || "Notes"} onChange={(event) => handleLocationPropChange(event, "notes", index)} defaultValue={location.notes}/>
-                                        <DateEdit placeholder={location.date || "Date"} onChange={(event) => handleLocationPropChange(event, "date", index)} defaultValue={location.date}/>
-                                    </LocationEdit>
-                                )
-                            })}
-                        </LocationsEdit>
-                        <AddLocation onClick={addLocation} >Add Location</AddLocation>
-                    </form>
-                </FormWrapper>
-            } */}
-
-
         </TicketBase>
     )
 }
