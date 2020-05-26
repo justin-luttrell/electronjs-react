@@ -73,21 +73,23 @@ function Location(props) {
                         {props.location.CLLI}
                 </CLLI>
             }
-            {(isNotesEditMode && props.anyEditMode) ?
-                <NotesWrapper className="notes-wrapper">
-                    <NotesEdit 
-                        type="text" 
-                        ref={editNotes}
-                        placeholder={props.location.notes || "Notes"} 
-                        onChange={handleNoteChange} 
-                        onBlur={() => {setNotesEditMode(false); props.setAnyEditMode(false)}} 
-                        defaultValue={props.location.notes}
-                    />
-                    <StatusPopover show={isNotesEditMode} handleClick={handleStatusClick}/>
-                </NotesWrapper> 
+            {(isNotesEditMode && props.anyEditMode) ? 
+                <>
+                    <NotesWrapper className="notes-wrapper">
+                        <NotesEdit 
+                            type="text" 
+                            ref={editNotes}
+                            placeholder={props.location.notes || "Notes"} 
+                            onChange={handleNoteChange} 
+                            onBlur={() => {setNotesEditMode(false); props.setAnyEditMode(false)}} 
+                            defaultValue={props.location.notes}
+                        />
+                    </NotesWrapper> 
+                </>
                 :
                 <Notes onDoubleClick={() => handleDoubleClick("Notes")} status="green">{props.location.notes}</Notes>
             }
+            <StatusPopover show={isNotesEditMode} handleClick={handleStatusClick}/>
             <DateStyled>{props.location.date}</DateStyled>
         </LocationBase>
     )

@@ -34,8 +34,7 @@ export const CLLIEdit = styled(StyledInput)`
 `
  
 export const NotesWrapper = styled.div`
-    position: relative;
-
+    display: flex;
 `
 
 export const NoteStatus = styled.span`
@@ -64,6 +63,7 @@ export const Notes = styled.div`
 
 export const NotesEdit = styled(StyledInput)`
     flex: 3;
+    width: fit-content;
 `
 
 export const DateStyled = styled.div`
