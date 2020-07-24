@@ -3,33 +3,29 @@ import styled from "@emotion/styled";
 
 export const TicketBase = styled.div`
     margin-bottom: 20px;
-    max-height: 1000px;
+    margin-right: 20px;
+    flex: 1;
+    /* flex-basis: 35%; */
+    /* max-width: 400px; */
+    box-sizing: border-box;
+    width: 450px;
     padding: 12px 12px 16px 12px;
-    width: 40%;
     position: relative;
-    background-color: #ffffff;
+    background-color: #fbfbfb;
     border-radius: 6px;
     border: 1px solid rgba(0,0,0,.05);
     display: flex;
     flex-direction: column;
-`
-
-export const Number = styled.h2`
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 12px;
-    text-decoration: underline;
+    cursor: default;
 `
 
 export const Control = styled.div`
     position: absolute;
     top: 10px;
     right: 10px;
+    user-select: none;
 `
 
-export const ControlOptions = styled.div`
-    position: absolute;
-`
 
 export const EditButton = styled.button`
     font-size: 16px;
@@ -56,20 +52,23 @@ const StyledFormControl = styled.input`
     font-size: 16px;
     font-weight: 400;
     padding: 6px 12px 6px 0px;
-    color: #495057;
+    color: #292929;
     background-color: #ffffff;
     background-clip: padding-box;
     border-radius: .25rem;
     min-width: 0;
+    background-color: #fbfbfb;
+    cursor: ${props => props.editMode ? 'auto' : 'pointer'};
 
     &:focus {
         outline: none;
         border: none;
         box-shadow: none;
     }
+
 `
 
-export const NumberEdit = styled(StyledFormControl)`
+export const Number = styled(StyledFormControl)`
     text-align: center;
     text-decoration: underline;
     padding: 0;
@@ -81,6 +80,12 @@ export const NumberEdit = styled(StyledFormControl)`
 
     &::placeholder {
         text-decoration: underline;
+    }
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none; 
+        margin: 0;
     }
 `
 
