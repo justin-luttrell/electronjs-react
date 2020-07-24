@@ -1,13 +1,11 @@
-import React, {useState, useRef, useEffect} from "react";
-import { 
+import React, { useState, useRef, useEffect } from "react";
+import {
     CLLI,
-    CLLIEdit,
     DateStyled,
     LocationBase,
-    NoteStatus,
     Notes,
-    NotesEdit,
     NotesWrapper,
+    TooltipContent
 } from "./Location.styled"
 import StatusPopover from "../StatusPopover/StatusPopover"
 
@@ -18,27 +16,26 @@ function Location(props) {
     const editCLLI = useRef(null)
     const editNotes = useRef(null)
 
+    const statuses = {
+        complete: "green",
+        dispatch: "orange",
+        shipping: "blue",
+        alert: "red",
+        mop: "purple"
+    }
+
     useEffect(() => {
-        if(isCLLIEditMode){
+        if (isCLLIEditMode) {
             editCLLI.current.focus();
         }
 
-        if(isNotesEditMode) {
+        if (isNotesEditMode) {
             editNotes.current.focus();
         }
-    })        
+    })
 
-    function handleDoubleClick(field) {
-        if(field == "CLLI"){
-            setCLLIEditMode(true);
-        }
-        if(field == "Notes")
-            setNotesEditMode(true);
-        props.setAnyEditMode(true);
-    }
-
-    function updateDate(){
-        const newDate = new Date().toLocaleString('en-US',{dateStyle: "short", timeStyle: "short"}) 
+    function updateDate() {
+        const newDate = new Date().toLocaleString('en-US', { dateStyle: "short", timeStyle: "short" })
         props.changeLocationData(props.ticketIndex, props.locationNum, 'date', newDate)
     }
 
@@ -52,45 +49,52 @@ function Location(props) {
         updateDate();
     }
 
-    function handleStatusClick() {
-        console.log("hello")
-    }   
+    function handleStatusChange(status) {
+        console.log(props.location)
+        props.changeLocationData(props.ticketIndex, props.locationNum, 'status', status);
+        updateDate();
+    }
 
     return (
         <LocationBase>
-            {(isCLLIEditMode && props.anyEditMode) ? 
-                <CLLIEdit 
-                    ref={editCLLI}
-                    type="text" 
-                    placeholder={props.location.CLLI || "CLLI"} 
-                    onChange={handleCLLIChange}
-                    onBlur={() => {setCLLIEditMode(false); props.setAnyEditMode(false)}} 
-                    defaultValue={props.location.CLLI} 
+            <CLLI
+                ref={editCLLI}
+                type="text"
+                placeholder={"CLLI"}
+                onChange={handleCLLIChange}
+                onBlur={() => setCLLIEditMode(false)}
+                defaultValue={props.location.CLLI}
+                readOnly={!isCLLIEditMode}
+                onDoubleClick={() => setCLLIEditMode(true)}
+                spellcheck="false"
+                editMode={isCLLIEditMode}
+
+            />
+
+            <NotesWrapper className="notes-wrapper">
+                <Notes
+                    type="text"
+                    ref={editNotes}
+                    placeholder={"Notes"}
+                    onChange={handleNoteChange}
+                    onBlur={() => setNotesEditMode(false)}
+                    defaultValue={props.location.notes}
+                    readOnly={!isNotesEditMode}
+                    onDoubleClick={() => setNotesEditMode(true)}
+                    spellcheck="false"
+                    status={statuses[props.location.status]}
+                    editMode={isNotesEditMode}
                 />
-                :
-                <CLLI 
-                    onDoubleClick={() => handleDoubleClick("CLLI")}>
-                        {props.location.CLLI}
-                </CLLI>
-            }
-            {(isNotesEditMode && props.anyEditMode) ? 
-                <>
-                    <NotesWrapper className="notes-wrapper">
-                        <NotesEdit 
-                            type="text" 
-                            ref={editNotes}
-                            placeholder={props.location.notes || "Notes"} 
-                            onChange={handleNoteChange} 
-                            onBlur={() => {setNotesEditMode(false); props.setAnyEditMode(false)}} 
-                            defaultValue={props.location.notes}
-                        />
-                    </NotesWrapper> 
-                </>
-                :
-                <Notes onDoubleClick={() => handleDoubleClick("Notes")} status="green">{props.location.notes}</Notes>
-            }
-            <StatusPopover show={isNotesEditMode} handleClick={handleStatusClick}/>
-            <DateStyled>{props.location.date}</DateStyled>
+                <StatusPopover
+                    show={isNotesEditMode}
+                    handleClick={handleStatusChange}
+                    currentStatus={statuses[props.location.status]}
+                />
+            </NotesWrapper>
+            <DateStyled className="tooltip">
+                {props.location.date.split(',')[0]}
+                <TooltipContent>{props.location.date}</TooltipContent>
+            </DateStyled>
         </LocationBase>
     )
 }

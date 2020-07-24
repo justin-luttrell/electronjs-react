@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 
 
 const Base = styled.div`
-  padding: 3%;
+  /* padding: 3%; */
   `
 
 function App() {

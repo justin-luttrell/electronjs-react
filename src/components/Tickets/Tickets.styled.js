@@ -1,26 +1,39 @@
 import styled from "@emotion/styled"
 
+export const TicketsWrapper = styled.div`
+  height: calc(100vh - 30px);
+  width: 70%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  margin: 15px;
+  position: relative;
+`
+
 export const TicketsBase = styled.div`
-  height: 80vh;
-  width: 80%;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  background-color: #f3f3f3;
-  border-radius: 24px;
-  padding: 32px 2%;
+  padding: 32px 24px;
 `
 
 export const AddTicketButton = styled.button`
-  width: 4%;
+  position: absolute;
+  right: -16px;
+  top: -12px;
+  padding: 0;
+  width: fit-content;
+  border-radius: 50%;
   font-size: 32px;
-  margin: 0 17%;
   border: none;
-  background: none;
+  background-color: #e0e0e0;;  
   color: #292929;
 
-  &:hover{
+  &:hover {
     color: #616161;
     cursor: pointer;
+  }
+
+  &:focus {
+    outline: none;
   }
 `
