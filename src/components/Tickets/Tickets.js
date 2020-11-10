@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     TicketsWrapper,
     TicketsBase,
@@ -8,13 +8,41 @@ import Ticket from "../Ticket/Ticket"
 import data from "../../data.json"
 import HorizontalScroll from "react-scroll-horizontal"
 
+const ipcRenderer = window.require('electron').ipcRenderer;
+
 const Tickets = () => {
-    const tickets = data.tickets
+    let tickets = data.tickets
     const [ticketsData, setTicketsData] = useState(tickets);
+
+    useEffect(() => {
+        ipcRenderer.on('save-before-exit', () => 
+            ipcRenderer.invoke('saving-before-exit', JSON.stringify({tickets: tickets}))
+        );
+
+        ipcRenderer.on('periodically-save', (e) => 
+            e.sender.send('save', JSON.stringify({tickets: tickets}))
+        );
+    })
 
     function addTicket() {
         tickets.push({ number: 'Number', locations: [] })
         setTicketsData({ ...tickets });
+    }
+
+    function deleteTicket(ticketIndex) {
+        tickets.splice(ticketIndex, 1);
+        setTicketsData({...tickets});
+    }
+
+    function removeLocations(ticketIndex, locationsToDelete) {
+        console.log(tickets[ticketIndex].locations)
+        
+        Object.values(locationsToDelete).forEach((location, locationIndex) => {
+            if(location)
+                tickets[ticketIndex].locations.splice(locationIndex, 1)
+        })
+        console.log(tickets[ticketIndex].locations)
+        setTicketsData({...tickets})
     }
 
     function addLocation(ticketIndex) {
@@ -52,6 +80,8 @@ const Tickets = () => {
                                     addLocation={addLocation}
                                     changeTicketNum={changeTicketNum}
                                     changeLocationData={changeLocationData}
+                                    deleteTicket={deleteTicket}
+                                    removeLocations={removeLocations}
                                 />
                             )
                         return <Ticket editMode={true} data={{ locations: [] }} />

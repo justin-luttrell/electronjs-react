@@ -2,11 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import {
     CLLI,
     DateStyled,
+    Checkbox,
     LocationBase,
     Notes,
     NotesWrapper,
-    TooltipContent
 } from "./Location.styled"
+import { TooltipContent } from "../Ticket/Ticket.styled"
 import StatusPopover from "../StatusPopover/StatusPopover"
 
 
@@ -50,9 +51,14 @@ function Location(props) {
     }
 
     function handleStatusChange(status) {
-        console.log(props.location)
         props.changeLocationData(props.ticketIndex, props.locationNum, 'status', status);
         updateDate();
+    }
+
+    function changeLocationToDeleteStatus(status) {
+        let locationsToDelete = props.locationsToDelete;
+        locationsToDelete[props.locationNum] = status;
+        props.setLocationsToDelete({...locationsToDelete})
     }
 
     return (
@@ -65,7 +71,7 @@ function Location(props) {
                 onBlur={() => setCLLIEditMode(false)}
                 defaultValue={props.location.CLLI}
                 readOnly={!isCLLIEditMode}
-                onDoubleClick={() => setCLLIEditMode(true)}
+                onContextMenu={(e) => { e.preventDefault(); setCLLIEditMode(true) }}
                 spellcheck="false"
                 editMode={isCLLIEditMode}
 
@@ -80,7 +86,7 @@ function Location(props) {
                     onBlur={() => setNotesEditMode(false)}
                     defaultValue={props.location.notes}
                     readOnly={!isNotesEditMode}
-                    onDoubleClick={() => setNotesEditMode(true)}
+                    onContextMenu={(e) => { e.preventDefault(); setNotesEditMode(true) }}
                     spellcheck="false"
                     status={statuses[props.location.status]}
                     editMode={isNotesEditMode}
@@ -91,10 +97,20 @@ function Location(props) {
                     currentStatus={statuses[props.location.status]}
                 />
             </NotesWrapper>
-            <DateStyled className="tooltip">
-                {props.location.date.split(',')[0]}
-                <TooltipContent>{props.location.date}</TooltipContent>
-            </DateStyled>
+
+            {props.editLocationsMode ?
+                <Checkbox>
+                    <input 
+                        type="checkbox"
+                        onChange={(e) => changeLocationToDeleteStatus(e.target.checked)}
+                    />
+                </Checkbox> 
+            :
+                <DateStyled className="tooltip">
+                    {props.location.date.split(',')[0]}
+                    <TooltipContent>{props.location.date}</TooltipContent>
+                </DateStyled>
+            }
         </LocationBase>
     )
 }

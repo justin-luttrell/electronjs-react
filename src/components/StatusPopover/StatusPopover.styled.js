@@ -2,14 +2,19 @@ import styled from "@emotion/styled";
 
 export const StatusButton = styled.button`
     color: ${props => props.currentStatus};
-    padding: 8px;
+    padding: 6px;
     height: fit-content;
     cursor: pointer;
     border: none;
     background: none;
+    border-radius: 50%;
     
     &:focus {
         outline: none;
+    }
+
+    &:hover {
+        background: #e4e1e1;
     }
 `
 
@@ -32,4 +37,9 @@ export const Status = styled.div`
     padding: 8px;
     margin: 0 4px;
     cursor: pointer;
+    border-radius: 10px;
+
+    &:hover {
+        background: #e4e1e1;
+    }
 `;

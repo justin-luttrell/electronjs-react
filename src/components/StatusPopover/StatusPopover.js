@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
     StatusButton,
     SelectStatuses,
@@ -10,9 +10,6 @@ import Popover from "react-tiny-popover";
 
 const StatusPopover = (props) => {
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-    const ref = useRef(null);
-
-    
 
     return (
         <Popover

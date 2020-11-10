@@ -9,13 +9,14 @@ const StyledInput = styled(TextareaAutosize)`
     border: none;
     font-size: 16px;
     font-weight: 400;
-    padding: 10px 12px 6px 0px;
+    padding: 10px 12px 6px 4px;
     color: ${props => props.status};
-    background-color: #fbfbfb;
+    background: ${props => props.editMode ? `#e4e1e1` : `#fbfbfb`};
     resize: none;
     font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     cursor: ${props => props.editMode ? 'auto' : 'pointer'};
     text-decoration: ${props => props.editMode ? 'dotted' : 'none'};
+    border-radius: 10px;
 
     &:focus {
         outline: none;
@@ -26,6 +27,10 @@ const StyledInput = styled(TextareaAutosize)`
     ::-webkit-scrollbar {
         width: 0px;  
         background: transparent;  
+    }
+
+    &:hover {
+        background: #e4e1e1;
     }
 `
 
@@ -55,35 +60,14 @@ export const DateStyled = styled.div`
     cursor: pointer;
 `
 
-export const TooltipContent = styled.span`
-    visibility: hidden;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 110%;
-    left: -50%;
-    opacity: 0;
-    transition: opacity 0.3s;
+export const Checkbox = styled.div`
+    padding: 4px 0 6px 35px;
+    flex: 0;
+    font-size: 12px;
+    position: relative;
 
-        
-    &::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #555 transparent transparent transparent;
-    }
-
-    .tooltip:hover & {
-        visibility: visible;
-        opacity: 1;
+    & input {
+        transform: scale(1.35);
+        cursor: pointer;
     }
 `

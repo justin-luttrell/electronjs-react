@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 
 export const TicketsWrapper = styled.div`
   height: calc(100vh - 30px);
-  width: 70%;
+  width: 97%;
   background-color: #ffffff;
   border-radius: 12px;
   margin: 15px;
